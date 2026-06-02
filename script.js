@@ -25,7 +25,7 @@ function operate(num1, operator, num2) {
 		case "*":
 			const multiplication = multiply(num1, num2);
 			break;
-		case "/":
+		case "÷":
 			const division = divide(num1, num2);
 			break;
 	}
