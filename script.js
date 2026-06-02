@@ -78,6 +78,7 @@ function updateCalculator(buttonPressed) {
 		case "0":
 			if (result.textContent) {
 				addToResult("0");
+				addToMath("0");
 			}
 			break;
 		case ".":
