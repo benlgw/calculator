@@ -28,10 +28,12 @@ div {
 .maths {
 	top: 10px;
 	font-size: 25px;
+	overflow: hidden;
 }
 
 .result {
 	font-size: 75px;
+	overflow: hidden;
 }
 
 .keypad {
