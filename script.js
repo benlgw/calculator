@@ -93,7 +93,9 @@ function updateCalculator(buttonPressed) {
 		case "*":
 		case "+":
 		case "-":
-			operationPressed(buttonPressed);
+			if (!result.textContent == "") {
+				operationPressed(buttonPressed);
+			}
 			break;
 		case "=":
 			num2 = result.textContent;
