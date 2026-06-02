@@ -15,6 +15,11 @@ buttons.forEach((element) => {
 	});
 });
 
+addEventListener("keydown", (key) => {
+	console.log(key.key);
+	updateCalculator(key.key);
+});
+
 function add(num1, num2) {
 	return +num1 + +num2;
 }
@@ -36,22 +41,24 @@ function operate(num1, operator, num2) {
 	switch (operator) {
 		case "+":
 			const addition = add(num1, num2);
-			result.textContent = addition;
+			addToResult(addition);
 			clearValues();
 			break;
 		case "-":
 			const subtraction = subtract(num1, num2);
-			result.textContent = subtraction;
+			addToResult(subtraction);
 			clearValues();
 			break;
 		case "x":
+		case "*":
 			const multiplication = multiply(num1, num2);
-			result.textContent = multiplication;
+			addToResult(multiplication);
 			clearValues();
 			break;
 		case "÷":
+		case "/":
 			const division = divide(num1, num2);
-			result.textContent = division;
+			addToResult(division);
 			clearValues();
 			break;
 	}
@@ -60,25 +67,30 @@ function operate(num1, operator, num2) {
 function updateCalculator(buttonPressed) {
 	switch (buttonPressed) {
 		case "AC":
+		case "c":
+		case "C":
 			clearCalc(true);
 			break;
 		case "Del":
-			result.textContent = result.textContent.slice(0, -1);
+		case "Backspace":
+			removeLast();
 			break;
 		case "0":
 			if (result.textContent) {
-				result.textContent = result.textContent + "0";
+				addToResult("0");
 			}
 			break;
 		case ".":
 			if (!result.textContent) {
-				result.textContent = "0.";
+				addToResult("0.");
 			} else if (!result.textContent.includes(".")) {
-				result.textContent = result.textContent + ".";
+				addToResult(".");
 			}
 			break;
 		case "÷":
+		case "/":
 		case "x":
+		case "*":
 		case "+":
 		case "-":
 			operationPressed(buttonPressed);
@@ -89,8 +101,12 @@ function updateCalculator(buttonPressed) {
 			operate(num1, operator, num2);
 			break;
 		default:
-			result.textContent = result.textContent + buttonPressed;
-			maths.textContent = maths.textContent + buttonPressed;
+			if (isNaN(+buttonPressed)) {
+				break;
+			} else {
+				addToResult(buttonPressed);
+				addToMath(buttonPressed);
+			}
 	}
 }
 
@@ -104,6 +120,18 @@ function operationPressed(operation) {
 		maths.textContent = maths.textContent + operator;
 	}
 	clearCalc(false);
+}
+
+function addToMath(string) {
+	maths.textContent = maths.textContent + string;
+}
+
+function addToResult(string) {
+	result.textContent = result.textContent + string;
+}
+
+function removeLast() {
+	result.textContent = result.textContent.slice(0, -1);
 }
 
 // Clear only result if False
